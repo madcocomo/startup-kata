@@ -3,7 +3,9 @@ package vic.kata;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @SpringBootApplication
 public class HangmanApplication {
 
@@ -13,11 +15,7 @@ public class HangmanApplication {
 
 	@RequestMapping("/")
 	public String home() {
-		return "hangman";
+		return "<h1>hangman</h1>";
 	}
 
-	@RequestMapping("/error")
-	public String error() {
-		return "hangman error";
-	}
 }
