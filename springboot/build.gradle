@@ -29,6 +29,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	testCompile('info.cukes:cucumber-java8:1.2.3')
+	testCompile('info.cukes:cucumber-junit:1.2.4')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
