@@ -26,7 +26,11 @@ public class HangmanApplication {
 	public String newGame() {
 		return "<html><head/><body>" +
 				"<h1>Hangman</h1>" +
-				"<h2>Question: A___E</h2>" +
+                "<ul>" +
+				"<li>Question: A___E</li>" +
+                "<li>Tired: AEIOU</li>" +
+                "<li>Chance: 12</li>" +
+                "</ul>" +
 				"</body></html>";
 	}
 
