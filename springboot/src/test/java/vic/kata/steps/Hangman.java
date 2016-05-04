@@ -3,19 +3,18 @@ package vic.kata.steps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import vic.kata.HangmanApplication;
+import vic.kata.hangman.GameController;
 
 import static org.junit.Assert.assertTrue;
 
 public class Hangman {
 
     private String pageContent;
-    //@Autowired
-    private HangmanApplication application = new HangmanApplication();
+    private GameController gameController = new GameController();
 
     @When("^player open home page$")
     public void openHomePage() {
-        pageContent = application.home();
+        pageContent = gameController.home();
     }
 
     @Then("^the game name is display$")
@@ -43,7 +42,7 @@ public class Hangman {
 
     @When("^player start a new game$")
     public void startGame() {
-        pageContent = application.newGame();
+        pageContent = gameController.newGame();
     }
 
     @Then("^the question is: (.*)$")
