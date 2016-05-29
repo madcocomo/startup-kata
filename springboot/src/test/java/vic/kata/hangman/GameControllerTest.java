@@ -17,6 +17,6 @@ public class GameControllerTest {
     @Test
     public void testHome() throws Exception {
         String actual = game.home();
-        assertTrue(actual, actual.contains("<h1>Hangman</h1>"));
+        assertEquals("Not very useful test", "home", actual);
     }
 }
