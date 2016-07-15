@@ -3,30 +3,41 @@ package vic.kata.steps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.util.WebUtils;
-import vic.kata.hangman.GameController;
+import org.springframework.web.context.WebApplicationContext;
 import vic.kata.hangman.HangmanApplication;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
+@WebAppConfiguration
 public class Hangman {
-
-    private GameController gameController = new GameController();
-    private MockMvc mvc = MockMvcBuilders.standaloneSetup(gameController).build();
+    @Autowired
+    private WebApplicationContext context;
+    private MockMvc mvc;
     private ResultActions page;
+
+    @cucumber.api.java.Before
+    public void setUp() throws Exception {
+        mvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
+
+    @Test
+    public void suppress_junit_complain() throws Exception { }
 
     @When("^player open home page$")
     public void openHomePage() throws Exception {
@@ -40,7 +51,7 @@ public class Hangman {
 
     @Then("^player can start a new game$")
     public void playerCanOpenGame() throws Exception {
-        assertAtPage("<form action='game' method='post'>");
+        assertAtPage("<form action=\"game\" method=\"post\">");
     }
 
     private void assertAtPage(String toMatch) throws Exception {
@@ -58,7 +69,6 @@ public class Hangman {
 
     @When("^player start a new game$")
     public void startGame() throws Exception {
-        //pageContent = gameController.newGame();
         page = mvc.perform(post("/game"));
     }
 
