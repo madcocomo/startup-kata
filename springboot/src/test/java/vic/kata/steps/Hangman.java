@@ -79,11 +79,11 @@ public class Hangman {
 
     @Then("^the tried is: (.*)$")
     public void verifyTried(String tried) throws Exception {
-        assertAtPage("Tired: " + tried);
+        assertAtPage("Tired: <span>" + tried +"</span>");
     }
 
     @Then("^chance is: (.*)$")
     public void verifyChance(int chance) throws Exception {
-        assertAtPage("Chance: " + chance);
+        assertAtPage("Chance: <span>" + chance +"</span>");
     }
 }

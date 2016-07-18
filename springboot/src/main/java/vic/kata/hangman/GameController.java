@@ -18,8 +18,9 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model) {
-        service.startGame();
-        model.addAttribute("chance", 12);
+        GameInfo gameInfo = service.startGame();
+        model.addAttribute("chance", gameInfo.getChance());
+        model.addAttribute("tried", gameInfo.getTried());
         return "game";
     }
 }

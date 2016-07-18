@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameService {
     public GameInfo startGame() {
-        return null;
+        return new GameInfo(12, "AEIOU");
     }
 }
