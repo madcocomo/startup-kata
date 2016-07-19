@@ -65,6 +65,7 @@ public class Hangman {
 
     @Given("^the tried at start is: (.*)$")
     public void initTried(String tried) {
+        //TODO should mock something
     }
 
     @When("^player start a new game$")

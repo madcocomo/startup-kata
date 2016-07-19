@@ -2,21 +2,15 @@ package vic.kata.hangman;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.ui.Model;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(HangmanApplication.class)
 public class GameControllerTest {
     @Mock
     private GameService mockService;
@@ -24,8 +18,8 @@ public class GameControllerTest {
     private Model model;
     @Mock
     private GameInfo gameInfo;
-    @Autowired @InjectMocks
-    private GameController controller;
+    @InjectMocks
+    private GameController controller = new GameController();
 
     @Before
     public void setUp() throws Exception {
