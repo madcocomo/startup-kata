@@ -1,8 +1,8 @@
-Feature: Hangman
-    Scenario: Open the home page
-        When player open home page
-        Then the game name is display
-            And player can start a new game
+Feature: Game
+    Background: It is the game scenarios acceptance test.
+        It uses mockMVC and mock object to test the integration
+        between outside dependencies like DB and UI.
+        Using mock make test much easier to setup, as well as much faster.
 
     Scenario: Start game
         Given the secret is: APPLE

@@ -11,11 +11,6 @@ public class GameController {
     @Autowired
     private GameService service;
 
-    @RequestMapping("/")
-    public String home() {
-        return "home";
-    }
-
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model) {
         Game game = service.startGame();

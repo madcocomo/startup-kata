@@ -23,13 +23,6 @@ public class GameControllerTest {
     private GameController controller = new GameController();
 
     @Test
-    public void testHome() throws Exception {
-        //TODO is Home really a method of game controller?
-        String actual = controller.home();
-        assertEquals("Not very useful test", "home", actual);
-    }
-
-    @Test
     public void testNewGame() throws Exception {
         //Given
         when(mockService.startGame()).thenReturn(game);
