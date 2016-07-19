@@ -30,7 +30,6 @@ public class GameControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        when(mockService.startGame()).thenReturn(gameInfo);
     }
 
     @Test
@@ -43,14 +42,13 @@ public class GameControllerTest {
     @Test
     public void testNewGame() throws Exception {
         //Given
-        when(gameInfo.getChance()).thenReturn(10);
-        when(gameInfo.getTried()).thenReturn("IOU");
+        when(mockService.startGame()).thenReturn(gameInfo);
         //When
         String actual = controller.newGame(model);
         //Then
         assertEquals("Not very useful again", "game", actual);
         verify(mockService).startGame();
-        verify(model).addAttribute("chance", 10);
-        verify(model).addAttribute("tried", "IOU");
+        verify(model).addAttribute("game", gameInfo);
     }
+
 }

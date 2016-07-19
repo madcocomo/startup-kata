@@ -74,7 +74,7 @@ public class Hangman {
 
     @Then("^the question is: (.*)$")
     public void verifyQuestion(String question) throws Exception {
-        assertAtPage(question);
+        assertAtPage("Question: <span>" + question +"</span>");
     }
 
     @Then("^the tried is: (.*)$")

@@ -7,9 +7,9 @@
 <body>
 <h1>Hangman</h1>
 <ul>
-    <li>Question: A___E</li>
-    <li>Tired: <span th:text="${tried}"/></li>
-    <li>Chance: <span th:text="${chance}"/></li>
+    <li>Question: <span th:text="${game.question}"/></li>
+    <li>Tired: <span th:text="${game.tried}"/></li>
+    <li>Chance: <span th:text="${game.chance}"/></li>
 </ul>
 </body>
 </html>
