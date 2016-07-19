@@ -15,6 +15,10 @@ public class GameService {
     public Game startGame() {
         return builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
-                provider.getSecret());
+                toUpper(provider.getSecret()));
+    }
+
+    private String toUpper(String secret) {
+        return secret.toUpperCase();
     }
 }

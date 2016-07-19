@@ -31,6 +31,6 @@ public class GameServiceTest {
         //When
         service.startGame();
         //Then
-        verify(gameBuilder).createGame(10, "AEO", "hello");
+        verify(gameBuilder).createGame(10, "AEO", "HELLO");
     }
 }

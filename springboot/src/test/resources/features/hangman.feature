@@ -11,3 +11,10 @@ Feature: Hangman
         Then the question is: A___E
             And the tried is: AEIOU
             And chance is: 12
+
+#    Scenario: Play game
+#        Given the game started as: APPLE, AEIOU, 12
+#        When player input: L
+#        Then the question is: A__LE
+#            And the tried is: AEIOUL
+#            And chance is: 12
