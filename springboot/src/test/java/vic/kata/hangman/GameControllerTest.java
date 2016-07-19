@@ -1,16 +1,17 @@
 package vic.kata.hangman;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class GameControllerTest {
     @Mock
     private GameService mockService;
@@ -20,11 +21,6 @@ public class GameControllerTest {
     private GameInfo gameInfo;
     @InjectMocks
     private GameController controller = new GameController();
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testHome() throws Exception {
