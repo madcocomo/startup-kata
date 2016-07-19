@@ -12,7 +12,7 @@ public class GameService {
     @Autowired
     private SecretProvider provider;
 
-    public GameInfo startGame() {
+    public Game startGame() {
         return builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
                 provider.getSecret());

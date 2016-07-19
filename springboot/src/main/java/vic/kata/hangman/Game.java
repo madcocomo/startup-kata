@@ -1,11 +1,11 @@
 package vic.kata.hangman;
 
-public class GameInfo {
+public class Game {
     private int chance;
     private String tried;
     private String question;
 
-    public GameInfo(int chance, String tried, String question) {
+    public Game(int chance, String tried, String question) {
         this.chance = chance;
         this.tried = tried;
         this.question = question;

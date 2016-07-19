@@ -18,8 +18,8 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model) {
-        GameInfo gameInfo = service.startGame();
-        model.addAttribute("game", gameInfo);
+        Game game = service.startGame();
+        model.addAttribute("game", game);
         return "game";
     }
 }

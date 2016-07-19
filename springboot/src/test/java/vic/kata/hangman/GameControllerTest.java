@@ -18,7 +18,7 @@ public class GameControllerTest {
     @Mock
     private Model model;
     @Mock
-    private GameInfo gameInfo;
+    private Game game;
     @InjectMocks
     private GameController controller = new GameController();
 
@@ -32,13 +32,13 @@ public class GameControllerTest {
     @Test
     public void testNewGame() throws Exception {
         //Given
-        when(mockService.startGame()).thenReturn(gameInfo);
+        when(mockService.startGame()).thenReturn(game);
         //When
         String actual = controller.newGame(model);
         //Then
         assertEquals("Not very useful again", "game", actual);
         verify(mockService).startGame();
-        verify(model).addAttribute("game", gameInfo);
+        verify(model).addAttribute("game", game);
     }
 
 }
