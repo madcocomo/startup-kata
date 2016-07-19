@@ -6,11 +6,12 @@ Feature: Hangman
 
     Scenario: Start game
         Given the secret is: APPLE
-            And the tried at start is: AEIOU
+            And the tried at start is: AE
+            And the chance at start is: 10
         When player start a new game
         Then the question is: A___E
-            And the tried is: AEIOU
-            And chance is: 12
+            And the tried is: AE
+            And chance is: 10
 
 #    Scenario: Play game
 #        Given the game started as: APPLE, AEIOU, 12
