@@ -3,12 +3,12 @@ package vic.kata.hangman;
 public class Game {
     private int chance;
     private String tried;
-    private String question;
+    private String secret;
 
-    public Game(int chance, String tried, String question) {
+    public Game(int chance, String tried, String secret) {
         this.chance = chance;
         this.tried = tried;
-        this.question = question;
+        this.secret = secret;
     }
 
     public int getChance() {
@@ -20,6 +20,10 @@ public class Game {
     }
 
     public String getQuestion() {
-        return question;
+        String mask = ".";
+        if (!tried.isEmpty()) {
+            mask = "[^"+tried+"]";
+        }
+        return secret.replaceAll(mask, "_");
     }
 }
