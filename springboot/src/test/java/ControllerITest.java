@@ -38,7 +38,7 @@ public class ControllerITest {
     public void route_to_home() throws Exception {
         mvc.perform(get("/"))
             .andExpect(status().isOk())
-            .andExpect(content().string(containsString("<h1>Hangman</h1>")));
+            .andExpect(content().string(containsString("Hangman")));
     }
 }
 

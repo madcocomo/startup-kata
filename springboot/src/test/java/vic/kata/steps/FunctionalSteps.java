@@ -10,9 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -24,15 +24,14 @@ import vic.kata.hangman.SecretProvider;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
-@WebAppConfiguration
-public class Hangman {
+@WebIntegrationTest(randomPort = true)
+public class FunctionalSteps {
     @Autowired
     private WebApplicationContext context;
     private MockMvc mvc;
@@ -54,20 +53,20 @@ public class Hangman {
     @Test
     public void suppress_junit_complain() throws Exception { }
 
-    @When("^player open home page$")
-    public void openHomePage() throws Exception {
-        page = mvc.perform(get("/"));
-    }
-
-    @Then("^the game name is display$")
-    public void gameNameDisplay() throws Exception {
-        assertAtPage("Hangman");
-    }
-
-    @Then("^player can start a new game$")
-    public void playerCanOpenGame() throws Exception {
-        assertAtPage("<form action=\"game\" method=\"post\">");
-    }
+//    @When("^player open home page$")
+//    public void openHomePage() throws Exception {
+//        page = mvc.perform(get("/"));
+//    }
+//
+//    @Then("^the game name is display$")
+//    public void gameNameDisplay() throws Exception {
+//        assertAtPage("Hangman");
+//    }
+//
+//    @Then("^player can start a new game$")
+//    public void playerCanOpenGame() throws Exception {
+//        assertAtPage("<form action=\"game\" method=\"post\">");
+//    }
 
     private void assertAtPage(String toMatch) throws Exception {
         page.andExpect(status().isOk())
