@@ -53,21 +53,6 @@ public class FunctionalSteps {
     @Test
     public void suppress_junit_complain() throws Exception { }
 
-//    @When("^player open home page$")
-//    public void openHomePage() throws Exception {
-//        page = mvc.perform(get("/"));
-//    }
-//
-//    @Then("^the game name is display$")
-//    public void gameNameDisplay() throws Exception {
-//        assertAtPage("Hangman");
-//    }
-//
-//    @Then("^player can start a new game$")
-//    public void playerCanOpenGame() throws Exception {
-//        assertAtPage("<form action=\"game\" method=\"post\">");
-//    }
-
     private void assertAtPage(String toMatch) throws Exception {
         page.andExpect(status().isOk())
             .andExpect(content().string(containsString(toMatch)));

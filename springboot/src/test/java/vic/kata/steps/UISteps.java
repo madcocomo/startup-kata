@@ -8,14 +8,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import vic.kata.hangman.HangmanApplication;
+import vic.kata.hangman.SecretProvider;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
@@ -25,6 +29,10 @@ public class UISteps {
     @Value("http://localhost:${local.server.port}")
     private String url;
 
+    //TODO UI feature and functional feature should run in separated context
+    //provide mock value as workaround
+    @Autowired
+    private SecretProvider provider;
 
     @cucumber.api.java.Before
     public void setup() {
@@ -61,4 +69,21 @@ public class UISteps {
         String buttonText = form.findElement(By.tagName("input")).getAttribute("value");
         assertEquals("button text", "Start Game", buttonText);
     }
+
+    @When("^player open game page$")
+    public void playerOpenGamePage() throws Exception {
+        given(provider.getSecret()).willReturn("whatever");
+        driver.get(url);
+        WebElement form = driver.findElement(By.id("start-game"));
+        form.submit();
+    }
+
+    @Then("^player could guess the word$")
+    public void playerCouldGuessWord() throws Exception {
+        WebElement form = driver.findElement(By.id("guess"));
+        assertEquals("Form action", "guess", form.getAttribute("action"));
+        WebElement input = form.findElement(By.xpath("input[@type='text']"));
+        assertNotNull("input", input);
+    }
+
 }
