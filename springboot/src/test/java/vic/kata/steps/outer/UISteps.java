@@ -37,7 +37,7 @@ public class UISteps  extends WithSpringSteps {
         driver.get(url);
     }
 
-    @Then("^the game name is display$")
+    @Then("^player can see the game name$")
     public void gameNameDisplay() throws Exception {
         WebElement title = driver.findElement(By.name("title"));
         assertEquals("home page title", "Hangman", title.getText());
@@ -64,6 +64,7 @@ public class UISteps  extends WithSpringSteps {
         assertEquals("Form action", "guess", form.getAttribute("action"));
         WebElement input = form.findElement(By.xpath("input[@type='TEXT']"));
         assertNotNull("input", input);
+        assertEquals("input single letter", "1", input.getAttribute("maxlength"));
     }
 
 }
