@@ -1,3 +1,4 @@
+@UI
 Feature: UI
     It is the most outside application test using WebDriver and memory DB.
     It focus on the verification that slowly dependency part works.

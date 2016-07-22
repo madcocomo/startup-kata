@@ -1,3 +1,4 @@
+@functional
 Feature: Game
     It is the game scenarios acceptance test.
     It uses mockMVC and mock object to test the integration between outside dependencies like DB and UI.
