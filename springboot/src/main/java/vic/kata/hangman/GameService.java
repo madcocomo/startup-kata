@@ -21,4 +21,9 @@ public class GameService {
     private String toUpper(String secret) {
         return secret.toUpperCase();
     }
+
+    public Game retriveGame(String sessionId) {
+        Game game = new Game(10,"AE"+"L","APPLE");
+        return game;
+    }
 }

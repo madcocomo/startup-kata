@@ -62,7 +62,7 @@ public class UISteps  extends WithSpringSteps {
     public void playerCouldGuessWord() throws Exception {
         WebElement form = driver.findElement(By.id("guess"));
         assertEquals("Form action", "guess", form.getAttribute("action"));
-        WebElement input = form.findElement(By.xpath("input[@type='TEXT']"));
+        WebElement input = form.findElement(By.name("letter"));
         assertNotNull("input", input);
         assertEquals("input single letter", "1", input.getAttribute("maxlength"));
     }

@@ -34,4 +34,18 @@ public class GameControllerTest {
         verify(model).addAttribute("game", game);
     }
 
+    @Test
+    public void testGuessLetter() throws Exception {
+        //Given
+        when(mockService.retriveGame("sessionId")).thenReturn(game);
+        //When
+        //TODO validate the letter
+        String actual = controller.guessLetter("X", model);
+        //Then
+        assertEquals("forward to game page when playing", "game", actual);
+        //TODO where to get session ID?
+        verify(mockService).retriveGame("sessionId");
+        verify(game).guess("X");
+        verify(model).addAttribute("game", game);
+    }
 }

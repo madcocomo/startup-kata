@@ -13,9 +13,12 @@ Feature: Game
             And the tried is: AE
             And chance is: 10
 
-#    Scenario: Play game
-#        Given the game started as: APPLE, AEIOU, 12
-#        When player input: L
-#        Then the question is: A__LE
-#            And the tried is: AEIOUL
-#            And chance is: 12
+    Scenario: Play game
+        Given the secret is: APPLE
+            And the tried at start is: AE
+            And the chance at start is: 10
+            And player start a new game
+        When player input: L
+        Then the question is: A__LE
+            And the tried is: AEL
+            And chance is: 10

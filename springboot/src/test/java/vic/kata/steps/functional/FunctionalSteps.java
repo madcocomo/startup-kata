@@ -83,4 +83,9 @@ public class FunctionalSteps extends WithSpringSteps {
     public void verifyChance(int chance) throws Exception {
         assertAtPage("Chance: <span>" + chance +"</span>");
     }
+
+    @When("^player input: (.)$")
+    public void inputLetter(String l) throws Exception {
+        page = mvc.perform(post("/guess").param("letter", l));
+    }
 }

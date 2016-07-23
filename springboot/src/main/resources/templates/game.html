@@ -12,7 +12,7 @@
     <li>Chance: <span th:text="${game.chance}"/></li>
 </ul>
 <form id="guess" action='guess' method='post'>
-    <input type="TEXT" maxlength="1"/>
+    <input name="letter" type="TEXT" maxlength="1"/>
     <input type="submit" value="OK"/>
 </form>
 </body>
