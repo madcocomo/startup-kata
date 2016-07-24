@@ -16,7 +16,7 @@ public class GameController {
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model, HttpSession session) {
         String sessionId = session.getId();
-        Game game = service.startGame(sessionId);
+        Game game = service.gameInstance(sessionId);
         model.addAttribute("game", game);
         return "game";
     }
@@ -24,7 +24,7 @@ public class GameController {
     @RequestMapping(value = "/guess", method = RequestMethod.POST)
     public String guessLetter(String letter, Model model, HttpSession session) {
         String sessionId = session.getId();
-        Game game = service.retriveGame(sessionId);
+        Game game = service.gameInstance(sessionId);
         game.guess(letter);
         model.addAttribute("game", game);
         return "game";

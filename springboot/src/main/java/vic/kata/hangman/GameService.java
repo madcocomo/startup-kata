@@ -11,19 +11,21 @@ public class GameService {
     private GameConfiguration configuration;
     @Autowired
     private SecretProvider provider;
+    @Autowired
+    private GameRegistry gameRegistry;
 
-    public Game startGame(String sessionId) {
-        return builder.createGame(configuration.getInitChance(),
+    public Game gameInstance(String sessionId) {
+        if (gameRegistry.hasGameInProgress(sessionId)) {
+            return gameRegistry.find(sessionId);
+        }
+        Game game = builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
                 toUpper(provider.getSecret()));
+        gameRegistry.register(sessionId, game);
+        return game;
     }
 
     private String toUpper(String secret) {
         return secret.toUpperCase();
-    }
-
-    public Game retriveGame(String sessionId) {
-        Game game = new Game(10,"AE"+"L","APPLE");
-        return game;
     }
 }

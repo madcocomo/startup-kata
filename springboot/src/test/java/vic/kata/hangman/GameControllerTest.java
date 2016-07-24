@@ -30,12 +30,12 @@ public class GameControllerTest {
     public void testNewGame() throws Exception {
         //Given
         when(session.getId()).thenReturn("newSessionId");
-        when(mockService.startGame("newSessionId")).thenReturn(game);
+        when(mockService.gameInstance("newSessionId")).thenReturn(game);
         //When
         String actual = controller.newGame(model, session);
         //Then
         assertEquals("Not very useful again", "game", actual);
-        verify(mockService).startGame("newSessionId");
+        verify(mockService).gameInstance("newSessionId");
         verify(model).addAttribute("game", game);
     }
 
@@ -43,13 +43,13 @@ public class GameControllerTest {
     public void testGuessLetter() throws Exception {
         //Given
         when(session.getId()).thenReturn("sessionId");
-        when(mockService.retriveGame("sessionId")).thenReturn(game);
+        when(mockService.gameInstance("sessionId")).thenReturn(game);
         //When
         //TODO validate the letter
         String actual = controller.guessLetter("X", model, session);
         //Then
         assertEquals("forward to game page when playing", "game", actual);
-        verify(mockService).retriveGame("sessionId");
+        verify(mockService).gameInstance("sessionId");
         verify(game).guess("X");
         verify(model).addAttribute("game", game);
     }
