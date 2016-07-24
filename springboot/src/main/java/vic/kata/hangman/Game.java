@@ -27,7 +27,7 @@ public class Game {
         return secret.replaceAll(mask, "_");
     }
 
-    public void guess(String x) {
-
+    public void guess(String letter) {
+        tried += letter;
     }
 }

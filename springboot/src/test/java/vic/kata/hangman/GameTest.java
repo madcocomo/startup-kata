@@ -24,4 +24,12 @@ public class GameTest {
         Game game = new Game(5, "O", "HELLO");
         assertEquals("question", "____O", game.getQuestion());
     }
+
+    @Test
+    public void should_change_tried_after_guess() throws Exception {
+        Game game = new Game(5, "O", "HELLO");
+        game.guess("E");
+        assertEquals("tried", "OE", game.getTried());
+        assertEquals("changed by tried", "_E__O", game.getQuestion());
+    }
 }
