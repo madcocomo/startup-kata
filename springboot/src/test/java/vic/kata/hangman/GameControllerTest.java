@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,31 +21,34 @@ public class GameControllerTest {
     private Model model;
     @Mock
     private Game game;
+    @Mock
+    private HttpSession session;
     @InjectMocks
     private GameController controller = new GameController();
 
     @Test
     public void testNewGame() throws Exception {
         //Given
-        when(mockService.startGame()).thenReturn(game);
+        when(session.getId()).thenReturn("newSessionId");
+        when(mockService.startGame("newSessionId")).thenReturn(game);
         //When
-        String actual = controller.newGame(model);
+        String actual = controller.newGame(model, session);
         //Then
         assertEquals("Not very useful again", "game", actual);
-        verify(mockService).startGame();
+        verify(mockService).startGame("newSessionId");
         verify(model).addAttribute("game", game);
     }
 
     @Test
     public void testGuessLetter() throws Exception {
         //Given
+        when(session.getId()).thenReturn("sessionId");
         when(mockService.retriveGame("sessionId")).thenReturn(game);
         //When
         //TODO validate the letter
-        String actual = controller.guessLetter("X", model);
+        String actual = controller.guessLetter("X", model, session);
         //Then
         assertEquals("forward to game page when playing", "game", actual);
-        //TODO where to get session ID?
         verify(mockService).retriveGame("sessionId");
         verify(game).guess("X");
         verify(model).addAttribute("game", game);

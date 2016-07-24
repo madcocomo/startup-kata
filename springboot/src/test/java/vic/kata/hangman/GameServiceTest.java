@@ -29,7 +29,7 @@ public class GameServiceTest {
         when(config.getInitTried()).thenReturn("AEO");
         when(secretProvider.getSecret()).thenReturn("hello");
         //When
-        service.startGame();
+        service.startGame("sessionId");
         //Then
         verify(gameBuilder).createGame(10, "AEO", "HELLO");
     }
