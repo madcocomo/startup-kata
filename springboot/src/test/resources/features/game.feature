@@ -3,6 +3,7 @@ Feature: Game
     It is the game scenarios acceptance test.
     It uses mockMVC and mock object to test the integration between outside dependencies like DB and UI.
     Using mock makes test much easier to setup, as well as much faster.
+    TODO Game win/lose
 
     Scenario: Start game
         Given the secret is: APPLE
