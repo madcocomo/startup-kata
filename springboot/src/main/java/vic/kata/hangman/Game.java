@@ -29,5 +29,8 @@ public class Game {
 
     public void guess(String letter) {
         tried += letter;
+        if (!secret.contains(letter)) {
+            chance -= 1;
+        }
     }
 }

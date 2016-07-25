@@ -31,5 +31,15 @@ public class GameTest {
         game.guess("E");
         assertEquals("tried", "OE", game.getTried());
         assertEquals("changed by tried", "_E__O", game.getQuestion());
+        assertEquals("no change on chance", 5, game.getChance());
+    }
+
+    @Test
+    public void should_reduce_chance_if_guess_wrong() throws Exception {
+        Game game = new Game(5, "O", "HELLO");
+        game.guess("F");
+        assertEquals("tried", "OF", game.getTried());
+        assertEquals("changed by tried", "____O", game.getQuestion());
+        assertEquals("chance--", 4, game.getChance());
     }
 }

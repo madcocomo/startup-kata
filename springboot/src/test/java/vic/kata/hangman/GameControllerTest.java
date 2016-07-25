@@ -41,13 +41,13 @@ public class GameControllerTest {
         verify(model).addAttribute("game", game);
     }
 
+    //TODO validate the letter
     @Test
     public void testGuessLetter() throws Exception {
         //Given
         when(session.getId()).thenReturn("sessionId");
         when(mockService.gameInstance("sessionId")).thenReturn(game);
         //When
-        //TODO validate the letter
         String actual = controller.guessLetter("X", model, session);
         //Then
         assertEquals("forward to game page when playing", "game", actual);
