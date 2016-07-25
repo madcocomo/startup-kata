@@ -26,6 +26,8 @@ public class GameControllerTest {
     @InjectMocks
     private GameController controller = new GameController();
 
+    //TODO should split newGame and guess. forward to no game page when guess before start
+
     @Test
     public void testNewGame() throws Exception {
         //Given

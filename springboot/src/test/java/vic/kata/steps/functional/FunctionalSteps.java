@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -28,6 +29,7 @@ public class FunctionalSteps extends WithSpringSteps {
     @Autowired
     private WebApplicationContext context;
     private MockMvc mvc;
+    private MockHttpSession session = new MockHttpSession();
     private ResultActions page;
 
     @Mock
@@ -66,7 +68,7 @@ public class FunctionalSteps extends WithSpringSteps {
     }
     @When("^player start a new game$")
     public void startGame() throws Exception {
-        page = mvc.perform(post("/game"));
+        page = mvc.perform(post("/game").session(session));
     }
 
     @Then("^the question is: (.*)$")
@@ -86,6 +88,6 @@ public class FunctionalSteps extends WithSpringSteps {
 
     @When("^player input: (.)$")
     public void inputLetter(String l) throws Exception {
-        page = mvc.perform(post("/guess").param("letter", l));
+        page = mvc.perform(post("/guess").session(session).param("letter", l));
     }
 }
