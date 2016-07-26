@@ -20,12 +20,8 @@ public class GameService {
         }
         Game game = builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
-                toUpper(provider.getSecret()));
+                provider.getSecret());
         gameRegistry.register(sessionId, game);
         return game;
-    }
-
-    private String toUpper(String secret) {
-        return secret.toUpperCase();
     }
 }

@@ -7,8 +7,8 @@ public class Game {
 
     public Game(int chance, String tried, String secret) {
         this.chance = chance;
-        this.tried = tried;
-        this.secret = secret;
+        this.tried = standardize(tried);
+        this.secret = standardize(secret);
     }
 
     public int getChance() {
@@ -22,15 +22,20 @@ public class Game {
     public String getQuestion() {
         String mask = ".";
         if (!tried.isEmpty()) {
-            mask = "[^"+tried+"]";
+            mask = String.format("[^%s]", tried);
         }
         return secret.replaceAll(mask, "_");
     }
 
     public void guess(String letter) {
-        tried += letter;
-        if (!secret.contains(letter)) {
+        String standardized = standardize(letter);
+        tried += standardized;
+        if (!secret.contains(standardized)) {
             chance -= 1;
         }
+    }
+
+    private String standardize(String letter) {
+        return letter.toUpperCase();
     }
 }

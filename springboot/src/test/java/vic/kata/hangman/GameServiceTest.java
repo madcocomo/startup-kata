@@ -35,13 +35,13 @@ public class GameServiceTest {
         when(config.getInitChance()).thenReturn(10);
         when(config.getInitTried()).thenReturn("AEO");
         when(secretProvider.getSecret()).thenReturn("hello");
-        when(gameBuilder.createGame(10, "AEO", "HELLO")).thenReturn(game);
+        when(gameBuilder.createGame(10, "AEO", "hello")).thenReturn(game);
 
         when(gameRegistry.hasGameInProgress("sessionId")).thenReturn(false);
         //When
         service.gameInstance("sessionId");
         //Then
-        verify(gameBuilder).createGame(10, "AEO", "HELLO");
+        verify(gameBuilder).createGame(10, "AEO", "hello");
         verify(gameRegistry).register("sessionId", game);
     }
 

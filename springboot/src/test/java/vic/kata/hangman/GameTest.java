@@ -42,4 +42,13 @@ public class GameTest {
         assertEquals("changed by tried", "____O", game.getQuestion());
         assertEquals("chance--", 4, game.getChance());
     }
+
+    @Test
+    public void game_should_takecare_the_case_because_it_knows() throws Exception {
+        Game game = new Game(5, "e", "HEllo");
+        game.guess("h");
+        assertEquals("Upper case secret", "HE___", game.getQuestion());
+        assertEquals("tried", "EH", game.getTried());
+        assertEquals("no change on chance", 5, game.getChance());
+    }
 }
