@@ -44,11 +44,21 @@ public class GameTest {
     }
 
     @Test
-    public void game_should_takecare_the_case_because_it_knows() throws Exception {
+    public void game_should_take_care_the_case_because_it_knows() throws Exception {
         Game game = new Game(5, "e", "HEllo");
         game.guess("h");
         assertEquals("Upper case secret", "HE___", game.getQuestion());
         assertEquals("tried", "EH", game.getTried());
         assertEquals("no change on chance", 5, game.getChance());
+    }
+
+    //TODO: A Rule object to decide the chance and tired recording?
+    @Test
+    public void should_not_remember_duplicate_tries_but_reduce_chance_each_wrong() throws Exception {
+        Game game = new Game(5, "E", "HELLO");
+        game.guess("X");
+        game.guess("x");
+        assertEquals("tried", "EX", game.getTried());
+        assertEquals("always chance-- even has tried", 3, game.getChance());
     }
 }

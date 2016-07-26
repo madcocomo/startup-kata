@@ -29,7 +29,10 @@ public class Game {
 
     public void guess(String letter) {
         String standardized = standardize(letter);
-        tried += standardized;
+        //Smell ...
+        if (!tried.contains(standardized)) {
+            tried += standardized;
+        }
         if (!secret.contains(standardized)) {
             chance -= 1;
         }
