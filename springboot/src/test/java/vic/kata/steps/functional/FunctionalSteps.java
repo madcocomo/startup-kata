@@ -7,7 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -15,8 +17,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import vic.kata.hangman.GameConfiguration;
 import vic.kata.hangman.GameService;
+import vic.kata.hangman.HangmanApplication;
 import vic.kata.hangman.SecretProvider;
-import vic.kata.steps.WithSpringSteps;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
@@ -24,8 +26,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
-public class FunctionalSteps extends WithSpringSteps {
+public class FunctionalSteps {
     @Autowired
     private WebApplicationContext context;
     private MockMvc mvc;
@@ -90,4 +93,5 @@ public class FunctionalSteps extends WithSpringSteps {
     public void inputLetter(String l) throws Exception {
         page = mvc.perform(post("/guess").session(session).param("letter", l));
     }
+
 }

@@ -7,14 +7,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.boot.test.WebIntegrationTest;
-import vic.kata.steps.WithSpringSteps;
+import org.springframework.test.context.ContextConfiguration;
+import vic.kata.hangman.HangmanApplication;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
 @WebIntegrationTest(randomPort = true)
-public class UISteps  extends WithSpringSteps {
+public class UISteps {
     WebDriver driver;
     @Value("http://localhost:${local.server.port}")
     private String url;
