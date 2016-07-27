@@ -41,7 +41,6 @@ public class GameControllerTest {
         verify(model).addAttribute("game", game);
     }
 
-    //TODO validate the letter
     @Test
     public void testGuessLetter() throws Exception {
         //Given

@@ -20,7 +20,10 @@ import vic.kata.hangman.GameService;
 import vic.kata.hangman.HangmanApplication;
 import vic.kata.hangman.SecretProvider;
 
-import static org.hamcrest.Matchers.containsString;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasXPath;
+import static org.hamcrest.core.IsNot.not;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -50,7 +53,12 @@ public class FunctionalSteps {
 
     private void assertAtPage(String toMatch) throws Exception {
         page.andExpect(status().isOk())
-            .andExpect(content().string(containsString(toMatch)));
+            .andExpect(content().node(hasXPath(toMatch)));
+    }
+
+    private void assertNotAtPage(String toMatch) throws Exception {
+        page.andExpect(status().isOk())
+                .andExpect(content().node(not(hasXPath(toMatch))));
     }
 
     @Given("^the secret is: (.*)$")
@@ -76,22 +84,54 @@ public class FunctionalSteps {
 
     @Then("^the question is: (.*)$")
     public void verifyQuestion(String question) throws Exception {
-        assertAtPage("Question: <span>" + question +"</span>");
+        assertAtPage("//li[string(.)='Question: "+ question +"']");
     }
 
     @Then("^the tried is: (.*)$")
     public void verifyTried(String tried) throws Exception {
-        assertAtPage("Tired: <span>" + tried +"</span>");
+        assertAtPage("//li[string(.)='Tried: "+ tried +"']");
     }
 
     @Then("^chance is: (.*)$")
     public void verifyChance(int chance) throws Exception {
-        assertAtPage("Chance: <span>" + chance +"</span>");
+        assertAtPage("//li[string(.)='Chance: "+ chance +"']");
     }
 
     @When("^player input: (.)$")
     public void inputLetter(String l) throws Exception {
         page = mvc.perform(post("/guess").session(session).param("letter", l));
+    }
+
+    enum GameState {
+        Playing, Win
+    }
+
+    class GameStep {
+        String guess;
+        String question;
+        String tried;
+        int chance;
+        GameState state;
+    }
+
+    @Then("^game in progress:$")
+    public void gameInProgress(List<GameStep> progress) throws Exception {
+        for (GameStep step : progress) {
+            inputLetter(step.guess);
+            verifyQuestion(step.question);
+            verifyTried(step.tried);
+            verifyChance(step.chance);
+            verifyGameState(step.state);
+        }
+    }
+
+    private void verifyGameState(GameState state) throws Exception {
+        if (state == GameState.Playing) {
+            assertAtPage("//form[@action='guess']");
+        } else {
+            assertNotAtPage("//form[@action='guess']");
+        }
+
     }
 
 }

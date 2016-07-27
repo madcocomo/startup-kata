@@ -16,17 +16,17 @@ Feature: Game
             And the tried is: AEIOU
             And chance is: 12
 
-    Scenario: Play game guess
-        Given player start a new game
-        When player input: L
-        Then the question is: A__LE
-            And the tried is: AEIOUL
-            And chance is: 12
-
-    Scenario: Play game wrong
+    Scenario: guess wrong
         Given player start a new game
             And player input: L
         When player input: X
         Then the question is: A__LE
             And the tried is: AEIOULX
             And chance is: 11
+
+    Scenario: Win a game
+        When player start a new game
+        Then game in progress:
+        | Guess | Question | Tried      | Chance | State    |
+        | L     | A__LE    | AEIOUL     | 12     | playing  |
+        | P     | APPLE    | AEIOULP    | 12     | win  |

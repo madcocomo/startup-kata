@@ -68,6 +68,6 @@ public class UISteps {
         WebElement input = form.findElement(By.name("letter"));
         assertNotNull("input", input);
         assertEquals("input single letter", "1", input.getAttribute("maxlength"));
+        assertNotNull("auto focused, in HTML5", input.getAttribute("autofocus"));
     }
-
 }
