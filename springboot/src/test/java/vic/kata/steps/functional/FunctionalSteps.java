@@ -39,7 +39,7 @@ public class FunctionalSteps extends WithSpringSteps {
     @InjectMocks @Autowired
     private GameService service;
 
-    @cucumber.api.java.Before
+    @cucumber.api.java.Before("@functional")
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders.webAppContextSetup(context).build();

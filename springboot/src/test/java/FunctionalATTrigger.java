@@ -6,6 +6,6 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(strict=true, monochrome=true,
     tags = "@functional", glue = "vic.kata.steps.functional",
-    format="junit:output", snippets= SnippetType.CAMELCASE)
+    plugin="junit:output", snippets= SnippetType.CAMELCASE)
 public class FunctionalATTrigger {
 }
