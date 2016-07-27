@@ -61,4 +61,12 @@ public class GameTest {
         assertEquals("tried", "EX", game.getTried());
         assertEquals("always chance-- even has tried", 3, game.getChance());
     }
+
+    @Test
+    public void telerate_to_invalidate_input() throws Exception {
+        Game game = new Game(5, "E", "HELLO");
+        game.guess("*");
+        assertEquals("tried not changed", "E", game.getTried());
+        assertEquals("chance not changed", 5, game.getChance());
+    }
 }
