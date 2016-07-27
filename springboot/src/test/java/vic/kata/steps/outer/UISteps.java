@@ -22,7 +22,7 @@ public class UISteps {
     @Value("http://localhost:${local.server.port}")
     private String url;
 
-    @cucumber.api.java.Before
+    @cucumber.api.java.Before("@UI")
     public void setup() {
         //TODO: set in test propriety file
         //System.setProperty("webdriver.chrome.driver", "C:\\ProgramData\\chromedriver.exe");
