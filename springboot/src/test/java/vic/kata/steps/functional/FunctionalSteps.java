@@ -58,7 +58,15 @@ public class FunctionalSteps {
 
     private void assertNotAtPage(String toMatch) throws Exception {
         page.andExpect(status().isOk())
-                .andExpect(content().node(not(hasXPath(toMatch))));
+            .andExpect(content().node(not(hasXPath(toMatch))));
+    }
+
+    private void assertAtPageOnly(boolean isTrue, String xpath) throws Exception {
+        if (isTrue) {
+            assertAtPage(xpath);
+        } else {
+            assertNotAtPage(xpath);
+        }
     }
 
     @Given("^the secret is: (.*)$")
@@ -71,12 +79,12 @@ public class FunctionalSteps {
         given(config.getInitTried()).willReturn(tried);
 
     }
-
     @Given("^the chance at start is: (\\d*)$")
     public void initTried(int chance) {
         given(config.getInitChance()).willReturn(chance);
 
     }
+
     @When("^player start a new game$")
     public void startGame() throws Exception {
         page = mvc.perform(post("/game").session(session));
@@ -101,17 +109,17 @@ public class FunctionalSteps {
     public void inputLetter(String l) throws Exception {
         page = mvc.perform(post("/guess").session(session).param("letter", l));
     }
-
     enum GameState {
         Playing, Win
-    }
 
+    }
     class GameStep {
         String guess;
         String question;
         String tried;
         int chance;
         GameState state;
+
     }
 
     @Then("^game in progress:$")
@@ -126,18 +134,9 @@ public class FunctionalSteps {
     }
 
     private void verifyGameState(GameState state) throws Exception {
-        if (state == GameState.Playing) {
-            assertAtPage("//form[@action='guess']");
-        } else {
-            assertNotAtPage("//form[@action='guess']");
-        }
-
-        if (state == GameState.Win) {
-            assertAtPage("//h1[text()='You Win']");
-        } else {
-            assertNotAtPage("//h1[text()='You Win']");
-        }
-
+        assertAtPageOnly(state == GameState.Playing, "//form[@action='guess']");
+        assertAtPageOnly(state == GameState.Win, "//h1[text()='You Win']");
+        assertAtPageOnly(state == GameState.Win, "//form[@action='game']");
     }
 
 }
