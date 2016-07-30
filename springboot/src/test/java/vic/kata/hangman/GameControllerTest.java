@@ -26,18 +26,17 @@ public class GameControllerTest {
     @InjectMocks
     private GameController controller = new GameController();
 
-    //TODO should split newGame and guess. forward to no game page when guess before start
-
     @Test
-    public void testNewGame() throws Exception {
+    public void should_create_game_if_not_in_session() throws Exception {
         //Given
         when(session.getId()).thenReturn("newSessionId");
-        when(mockService.gameInstance("newSessionId")).thenReturn(game);
+        when(mockService.inProgressGame("newSessionId")).thenReturn(null);
+        when(mockService.startGame("newSessionId")).thenReturn(game);
         //When
         String actual = controller.newGame(model, session);
         //Then
-        assertEquals("Not very useful again", "game", actual);
-        verify(mockService).gameInstance("newSessionId");
+        assertEquals("show game page", "game", actual);
+        verify(mockService).startGame("newSessionId");
         verify(model).addAttribute("game", game);
     }
 
@@ -45,12 +44,12 @@ public class GameControllerTest {
     public void testGuessLetter() throws Exception {
         //Given
         when(session.getId()).thenReturn("sessionId");
-        when(mockService.gameInstance("sessionId")).thenReturn(game);
+        when(mockService.inProgressGame("sessionId")).thenReturn(game);
         //When
         String actual = controller.guessLetter("X", model, session);
         //Then
         assertEquals("forward to game page when playing", "game", actual);
-        verify(mockService).gameInstance("sessionId");
+        verify(mockService).inProgressGame("sessionId");
         verify(game).guess("X");
         verify(model).addAttribute("game", game);
     }

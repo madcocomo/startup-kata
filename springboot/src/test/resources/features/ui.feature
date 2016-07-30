@@ -4,11 +4,6 @@ Feature: UI
     It focus on the verification that slowly dependency part works.
     The main parts of business logic is handled in functional acceptance tests.
 
-    TODO
-        focus input
-        should not input lower case
-        should not input number and signal
-
     Scenario: Open the home page
         In order to play the game, as a player I want to know what the game is and see the entry
         When player open home page

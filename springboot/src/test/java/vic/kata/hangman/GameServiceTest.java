@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
@@ -37,21 +38,23 @@ public class GameServiceTest {
         when(secretProvider.getSecret()).thenReturn("hello");
         when(gameBuilder.createGame(10, "AEO", "hello")).thenReturn(game);
 
-        when(gameRegistry.hasGameInProgress("sessionId")).thenReturn(false);
         //When
-        service.gameInstance("sessionId");
+        service.startGame("sessionId");
         //Then
         verify(gameBuilder).createGame(10, "AEO", "hello");
         verify(gameRegistry).register("sessionId", game);
     }
 
     @Test
-    public void should_retrieve_inprogress_game_if_registered() throws Exception {
+    public void should_retrieve_inProgress_game_if_registered() throws Exception {
         //Given
         when(gameRegistry.hasGameInProgress("sessionId")).thenReturn(true);
         when(gameRegistry.find("sessionId")).thenReturn(game);
         //When
-        service.gameInstance("sessionId");
+        Game actual = service.inProgressGame("sessionId");
+        //Then
+        assertSame(game, actual);
+        verify(gameRegistry).find("sessionId");
         verify(gameBuilder, never()).createGame(anyInt(), anyString(), anyString());
     }
 

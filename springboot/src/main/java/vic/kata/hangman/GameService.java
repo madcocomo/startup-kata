@@ -14,10 +14,14 @@ public class GameService {
     @Autowired
     private GameRegistry gameRegistry;
 
-    public Game gameInstance(String sessionId) {
+    public Game inProgressGame(String sessionId) {
         if (gameRegistry.hasGameInProgress(sessionId)) {
             return gameRegistry.find(sessionId);
         }
+        return null;
+    }
+
+    public Game startGame(String sessionId) {
         Game game = builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
                 provider.getSecret());

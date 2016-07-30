@@ -24,7 +24,6 @@ public class UISteps {
 
     @cucumber.api.java.Before("@UI")
     public void setup() {
-        //TODO: set in test propriety file
         //System.setProperty("webdriver.chrome.driver", "C:\\ProgramData\\chromedriver.exe");
         //driver = new ChromeDriver();
         driver = new HtmlUnitDriver();
