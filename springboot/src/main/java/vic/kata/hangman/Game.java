@@ -58,7 +58,15 @@ public class Game {
         return letter.toUpperCase();
     }
 
+    public boolean isEnd() {
+        return isWin() || isLose();
+    }
+
     public boolean isWin() {
         return getQuestion().equals(secret);
+    }
+
+    public boolean isLose() {
+        return chance == 0;
     }
 }

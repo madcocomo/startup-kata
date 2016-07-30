@@ -75,11 +75,24 @@ public class GameTest {
     @Test
     public void should_win_if_guess_all_secret() throws Exception {
         Game game = new Game(5, "E", "HELLO");
-        assertFalse("At beginning", game.isWin());
+        assertFalse("Not win at beginning", game.isWin());
+        assertFalse("Not end at beginning", game.isEnd());
         game.guess("L");
         game.guess("O");
         game.guess("H");
         assertTrue("Win", game.isWin());
-
+        assertTrue("End", game.isEnd());
     }
+
+    @Test
+    public void should_lose_if_waste_all_chance() throws Exception {
+        Game game = new Game(2, "E", "HELLO");
+        assertFalse("Not lose at beginning", game.isLose());
+        assertFalse("Not end at beginning", game.isEnd());
+        game.guess("X");
+        game.guess("Y");
+        assertTrue("Lose", game.isLose());
+        assertTrue("End", game.isEnd());
+    }
+
 }
