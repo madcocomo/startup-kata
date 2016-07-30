@@ -57,4 +57,8 @@ public class Game {
     private String standardize(String letter) {
         return letter.toUpperCase();
     }
+
+    public boolean isWin() {
+        return getQuestion().equals(secret);
+    }
 }

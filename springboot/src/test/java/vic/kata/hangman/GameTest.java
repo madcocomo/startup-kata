@@ -3,6 +3,8 @@ package vic.kata.hangman;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -63,10 +65,21 @@ public class GameTest {
     }
 
     @Test
-    public void telerate_to_invalidate_input() throws Exception {
+    public void tolerate_to_invalidate_input() throws Exception {
         Game game = new Game(5, "E", "HELLO");
         game.guess("*");
         assertEquals("tried not changed", "E", game.getTried());
         assertEquals("chance not changed", 5, game.getChance());
+    }
+
+    @Test
+    public void should_win_if_guess_all_secret() throws Exception {
+        Game game = new Game(5, "E", "HELLO");
+        assertFalse("At beginning", game.isWin());
+        game.guess("L");
+        game.guess("O");
+        game.guess("H");
+        assertTrue("Win", game.isWin());
+
     }
 }
