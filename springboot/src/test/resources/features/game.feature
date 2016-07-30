@@ -30,3 +30,15 @@ Feature: Game
         | Guess | Question | Tried      | Chance | State    |
         | L     | A__LE    | AEIOUL     | 12     | playing  |
         | P     | APPLE    | AEIOULP    | 12     | win  |
+
+    Scenario: Lose a game
+        Given the chance at start is: 5
+        When player start a new game
+        Then game in progress:
+        | Guess | Question | Tried      | Chance | State    |
+        | X     | A___E    | AEIOUX     | 4      | playing  |
+        | Y     | A___E    | AEIOUXY    | 3      | playing  |
+        | Z     | A___E    | AEIOUXYZ   | 2      | playing  |
+        | P     | APP_E    | AEIOUXYZP  | 2      | playing  |
+        | B     | APP_E    | AEIOUXYZPB | 1      | playing  |
+        | C     | APP_E    | AEIOUXYZPBC| 0      | lose     |

@@ -110,8 +110,7 @@ public class FunctionalSteps {
         page = mvc.perform(post("/guess").session(session).param("letter", l));
     }
     enum GameState {
-        Playing, Win
-
+        Playing, Win, Lose
     }
     class GameStep {
         String guess;
@@ -135,8 +134,9 @@ public class FunctionalSteps {
 
     private void verifyGameState(GameState state) throws Exception {
         assertAtPageOnly(state == GameState.Playing, "//form[@action='guess']");
+        assertAtPageOnly(state != GameState.Playing, "//form[@action='game']");
         assertAtPageOnly(state == GameState.Win, "//h1[text()='You Win']");
-        assertAtPageOnly(state == GameState.Win, "//form[@action='game']");
+        assertAtPageOnly(state == GameState.Lose, "//h1[text()='No Luck']");
     }
 
 }
