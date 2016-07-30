@@ -11,9 +11,10 @@
     <li>Tried: <span th:text="${game.tried}"/></li>
     <li>Chance: <span th:text="${game.chance}"/></li>
 </ul>
-<form id="guess" action='guess' method='post'>
+<form id="guess" action='guess' method='post' th:if="${game.question != 'APPLE'}">
     <input name="letter" autofocus="true" type="TEXT" maxlength="1"/>
     <input type="submit" value="OK"/>
 </form>
+<h1 th:if="${game.question == 'APPLE'}">You Win</h1>
 </body>
 </html>

@@ -132,6 +132,12 @@ public class FunctionalSteps {
             assertNotAtPage("//form[@action='guess']");
         }
 
+        if (state == GameState.Win) {
+            assertAtPage("//h1[text()='You Win']");
+        } else {
+            assertNotAtPage("//h1[text()='You Win']");
+        }
+
     }
 
 }
