@@ -15,10 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import vic.kata.hangman.GameConfiguration;
-import vic.kata.hangman.GameService;
-import vic.kata.hangman.HangmanApplication;
-import vic.kata.hangman.SecretProvider;
+import vic.kata.hangman.*;
 
 import java.util.List;
 

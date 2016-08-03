@@ -1,0 +1,6 @@
+game:
+  init-chance: 12
+  init-tried: AEIOU
+
+local:
+  secrets: ["APPLE", "ORANGE", "WATERMELON", "CHERRY"]
