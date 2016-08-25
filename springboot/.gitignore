@@ -1,5 +1,7 @@
 .gradle
 .idea
+*.ipr
+*.iws
 output
 /build
 /gradle
