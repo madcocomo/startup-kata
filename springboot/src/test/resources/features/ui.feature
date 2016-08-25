@@ -14,3 +14,9 @@ Feature: UI
         In order to guess the word, as a player I need someway to input letters
         When player open game page
         Then player could guess the word
+
+    Scenario: Open the game record page
+        Int order to see the game record, as a admin I want to see played game info in a page
+        When admin open record page
+        Then admin can see the played game counts
+

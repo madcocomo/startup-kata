@@ -1,5 +1,6 @@
 package vic.kata.steps.outer;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
@@ -18,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
 @WebIntegrationTest(randomPort = true)
 public class UISteps {
-    WebDriver driver;
+    private WebDriver driver;
     @Value("http://localhost:${local.server.port}")
     private String url;
 
@@ -68,5 +69,15 @@ public class UISteps {
         assertNotNull("input", input);
         assertEquals("input single letter", "1", input.getAttribute("maxlength"));
         assertNotNull("auto focused, in HTML5", input.getAttribute("autofocus"));
+    }
+
+    @When("^admin open record page$")
+    public void adminOpenGameRecordPage() throws Exception {
+        driver.get(url + "/records");
+    }
+
+    @Then("^admin can see the played game counts$")
+    public void adminCanSeePlayedGameCounts() throws Exception {
+        throw new PendingException();
     }
 }
