@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ContextConfiguration(classes = HangmanApplication.class, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
-public class FunctionalSteps {
+public class GameFunctionalSteps {
     @Autowired
     private WebApplicationContext context;
     private MockMvc mvc;
