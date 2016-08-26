@@ -17,4 +17,8 @@ public class HangmanApplication {
         return "home";
     }
 
+    @RequestMapping("/records")
+    public String records() {
+        return "records";
+    }
 }

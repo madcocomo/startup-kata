@@ -78,6 +78,6 @@ public class UISteps {
 
     @Then("^admin can see the played game counts$")
     public void adminCanSeePlayedGameCounts() throws Exception {
-        throw new PendingException();
+        driver.findElement(By.id("played"));
     }
 }
