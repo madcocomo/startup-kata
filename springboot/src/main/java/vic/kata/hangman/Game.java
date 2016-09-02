@@ -1,7 +1,17 @@
 package vic.kata.hangman;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Game {
     public static final String VALIDATE_PATTERN = "[A-Z]";
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private int chance;
     private String tried;
     private String secret;

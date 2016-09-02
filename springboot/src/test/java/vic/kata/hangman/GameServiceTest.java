@@ -27,6 +27,9 @@ public class GameServiceTest {
     @Mock
     private Game game;
 
+    @Mock
+    private GameRepository gameRepository;
+
     @InjectMocks
     private GameService service = new GameService();
 
@@ -37,7 +40,6 @@ public class GameServiceTest {
         when(config.getInitTried()).thenReturn("AEO");
         when(secretProvider.getSecret()).thenReturn("hello");
         when(gameBuilder.createGame(10, "AEO", "hello")).thenReturn(game);
-
         //When
         service.startGame("sessionId");
         //Then
@@ -58,4 +60,13 @@ public class GameServiceTest {
         verify(gameBuilder, never()).createGame(anyInt(), anyString(), anyString());
     }
 
+    @Test
+    public void should_record_game_when_start() throws Exception {
+        when(gameBuilder.createGame(anyInt(), anyString(), anyString()))
+            .thenReturn(game);
+        //When
+        service.startGame("irrelevant");
+        //Then
+        verify(gameRepository).save(game);
+    }
 }

@@ -12,11 +12,13 @@ public class GameService {
     @Autowired
     private SecretProvider provider;
     @Autowired
-    private GameRegistry gameRegistry;
+    private GameRegistry inProgressGames;
+    @Autowired
+    private GameRepository gameRepository;
 
     public Game inProgressGame(String sessionId) {
-        if (gameRegistry.hasGameInProgress(sessionId)) {
-            return gameRegistry.find(sessionId);
+        if (inProgressGames.hasGameInProgress(sessionId)) {
+            return inProgressGames.find(sessionId);
         }
         return null;
     }
@@ -25,7 +27,8 @@ public class GameService {
         Game game = builder.createGame(configuration.getInitChance(),
                 configuration.getInitTried(),
                 provider.getSecret());
-        gameRegistry.register(sessionId, game);
+        inProgressGames.register(sessionId, game);
+        gameRepository.save(game);
         return game;
     }
 }
