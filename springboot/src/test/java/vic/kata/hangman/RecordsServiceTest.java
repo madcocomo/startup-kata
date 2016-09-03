@@ -19,16 +19,29 @@ public class RecordsServiceTest {
     private GameRepository repository;
     @InjectMocks
     private RecordsService service = new RecordsService();
+
+    private Game loseGame() {
+        Game game = mock(Game.class);
+        when(game.isLose()).thenReturn(true);
+        return game;
+    }
+
+    private Game winGame() {
+        Game game = mock(Game.class);
+        when(game.isWin()).thenReturn(true);
+        return game;
+    }
+
     @Test
     public void should_count_game_from_repository() throws Exception {
         //Given
         List<Game> playedGames = Arrays.asList(
-            mock(Game.class), mock(Game.class), mock(Game.class));
+                winGame(), winGame(), loseGame());
         when(repository.findAll()).thenReturn(playedGames);
         //When
-        int actual = service.played();
         //Then
-        assertEquals(3, actual);
-
+        assertEquals("played", 3, service.played());
+        assertEquals("won", 2, service.won());
+        assertEquals("lost", 1, service.lost());
     }
 }
