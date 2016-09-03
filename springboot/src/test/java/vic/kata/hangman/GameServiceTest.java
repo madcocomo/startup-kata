@@ -62,6 +62,7 @@ public class GameServiceTest {
 
     @Test
     public void should_record_game_when_start() throws Exception {
+        //Given
         when(gameBuilder.createGame(anyInt(), anyString(), anyString()))
             .thenReturn(game);
         //When

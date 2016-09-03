@@ -1,5 +1,6 @@
 package vic.kata.steps.functional;
 
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
+import vic.kata.hangman.GameRepository;
 import vic.kata.hangman.HangmanApplication;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -16,7 +18,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class RecordsFunctionalSteps {
     @Autowired
     FunctionalTestHelper helper;
-    ResultActions page;
+    private ResultActions page;
+
+    @Autowired
+    private GameRepository repository;
+
+    @Given("^an empty game history$")
+    public void cleanGameHistory() throws Exception {
+        repository.deleteAllInBatch();
+    }
 
     @When("^admin view the game records$")
     public void adminViewGameRecords() throws Exception {

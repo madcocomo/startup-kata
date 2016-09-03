@@ -28,9 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ContextConfiguration(classes = {HangmanApplication.class, FunctionalTestHelper.class}, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
 public class GameFunctionalSteps {
-    @Rule
-    public MockitoRule initMocks = MockitoJUnit.rule();
-
     private MockHttpSession session = new MockHttpSession();
     private ResultActions page;
 

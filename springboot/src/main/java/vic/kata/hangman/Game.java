@@ -16,6 +16,8 @@ public class Game {
     private String tried;
     private String secret;
 
+    public Game() {}
+
     public Game(int chance, String tried, String secret) {
         this.chance = chance;
         this.tried = standardize(tried);
