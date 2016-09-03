@@ -23,9 +23,13 @@ public class RecordsControllerTest {
     public void should_show_records() throws Exception {
         //Given
         when(service.played()).thenReturn(5);
+        when(service.won()).thenReturn(2);
+        when(service.lost()).thenReturn(3);
         //When
-        String actual = controller.showRecords(model);
+        controller.showRecords(model);
         //Then
         verify(model).addAttribute("played", 5);
+        verify(model).addAttribute("won", 2);
+        verify(model).addAttribute("lost", 3);
     }
 }

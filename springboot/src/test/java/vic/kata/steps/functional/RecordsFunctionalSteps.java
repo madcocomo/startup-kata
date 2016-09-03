@@ -33,8 +33,9 @@ public class RecordsFunctionalSteps {
         page = helper.getMvc().perform(post("/records"));
     }
 
-    @Then("^the played game counts is: (\\d*)$")
-    public void playedGameCountsIs(int count) throws Exception {
-        helper.assertAtPage(page, "//li[string(.)='Played: " + count + "']");
+    @Then("^the (.*) game counts is: (\\d*)$")
+    public void lostGameCountsIs(String item, int count) throws Exception {
+        helper.assertAtPage(page, String.format("//li[string(.)='%s: %d']", item, count));
     }
+
 }

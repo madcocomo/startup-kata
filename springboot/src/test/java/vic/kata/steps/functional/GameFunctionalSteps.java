@@ -108,6 +108,14 @@ public class GameFunctionalSteps {
         }
     }
 
+    @Given("^player played a game: (.*)$")
+    public void playedGame(String guesses) throws Exception {
+        startGame();
+        for (Character c : guesses.toCharArray()) {
+            inputLetter(String.valueOf(c));
+        }
+    }
+
     private void verifyGameState(GameState state) throws Exception {
         helper.assertAtPageOnly(page, state == GameState.Playing, "//form[@action='guess']", this);
         helper.assertAtPageOnly(page, state != GameState.Playing, "//form[@action='game']", this);

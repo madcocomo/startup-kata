@@ -13,6 +13,8 @@ public class RecordsController {
     @RequestMapping("/records")
     public String showRecords(Model model) {
         model.addAttribute("played", service.played());
+        model.addAttribute("won", service.won());
+        model.addAttribute("lost", service.lost());
         return "records";
     }
 }

@@ -11,4 +11,12 @@ public class RecordsService {
     public int played() {
         return repository.findAll().size();
     }
+
+    public int won() {
+        return 1;
+    }
+
+    public int lost() {
+        return 2;
+    }
 }
