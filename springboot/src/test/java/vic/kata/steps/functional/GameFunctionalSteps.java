@@ -111,6 +111,7 @@ public class GameFunctionalSteps {
     private void verifyGameState(GameState state) throws Exception {
         helper.assertAtPageOnly(page, state == GameState.Playing, "//form[@action='guess']", this);
         helper.assertAtPageOnly(page, state != GameState.Playing, "//form[@action='game']", this);
+        helper.assertAtPageOnly(page, state != GameState.Playing, "//a[@href='records']", this);
         helper.assertAtPageOnly(page, state == GameState.Win, "//h1[text()='You Win']", this);
         helper.assertAtPageOnly(page, state == GameState.Lose, "//h1[text()='No Luck']", this);
     }
