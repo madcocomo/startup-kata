@@ -3,4 +3,6 @@ game:
   init-tried: AEIOU
 
 local:
-  secrets: ["APPLE", "ORANGE", "WATERMELON", "CHERRY"]
+  secrets: ["APPLE", "ORANGE", "WATERMELON", "CHERRY"
+    ,"TEST", "DRIVEN", "DEVELOPMENT", "AWESOME"
+    ]
