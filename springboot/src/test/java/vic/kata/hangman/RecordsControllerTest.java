@@ -25,14 +25,9 @@ public class RecordsControllerTest {
     public void should_show_records() throws Exception {
         //Given
         when(service.statistic()).thenReturn(records);
-        when(records.played()).thenReturn(5);
-        when(records.won()).thenReturn(2);
-        when(records.lost()).thenReturn(3);
         //When
         controller.showRecords(model);
         //Then
-        verify(model).addAttribute("played", 5);
-        verify(model).addAttribute("won", 2);
-        verify(model).addAttribute("lost", 3);
+        verify(model).addAttribute("records", records);
     }
 }

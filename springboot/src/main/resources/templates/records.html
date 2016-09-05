@@ -9,9 +9,9 @@
 <body style="margin:0 auto;">
 <h1 id="title">Game records</h1>
 <ul>
-    <li id="played">Played: <span th:text="${played}"></span></li>
-    <li id="won">Won: <span th:text="${won}"></span></li>
-    <li id="lost">Lost: <span th:text="${lost}"></span></li>
+    <li id="played">Played: <span th:text="${records.played()}"></span></li>
+    <li id="won">Won: <span th:text="${records.won()}"></span></li>
+    <li id="lost">Lost: <span th:text="${records.lost()}"></span></li>
 </ul>
 <p><a href="https://github.com/madcocomo/startup-kata/tree/master/springboot">see source code</a></p>
 </body>

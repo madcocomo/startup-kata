@@ -13,9 +13,7 @@ public class RecordsController {
     @RequestMapping("/records")
     public String showRecords(Model model) {
         GameRecords records = service.statistic();
-        model.addAttribute("played", records.played());
-        model.addAttribute("won", records.won());
-        model.addAttribute("lost", records.lost());
+        model.addAttribute("records", records);
         return "records";
     }
 }
