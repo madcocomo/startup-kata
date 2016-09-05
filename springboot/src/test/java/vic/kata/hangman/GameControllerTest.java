@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class GameControllerTest {
     @Mock
-    private GameService mockService;
+    private GameService service;
     @Mock
     private GameRepository repository;
     @Mock
@@ -34,13 +34,13 @@ public class GameControllerTest {
     public void should_create_game_if_not_in_session() throws Exception {
         //Given
         when(session.getId()).thenReturn("newSessionId");
-        when(mockService.inProgressGame("newSessionId")).thenReturn(null);
-        when(mockService.startGame("newSessionId")).thenReturn(game);
+        when(service.inProgressGame("newSessionId")).thenReturn(null);
+        when(service.startGame("newSessionId")).thenReturn(game);
         //When
         String actual = controller.newGame(model, session);
         //Then
         assertEquals("show game page", "game", actual);
-        verify(mockService).startGame("newSessionId");
+        verify(service).startGame("newSessionId");
         verify(model).addAttribute("game", game);
         verify(repository).save(game);
     }
@@ -49,12 +49,12 @@ public class GameControllerTest {
     public void testGuessLetter() throws Exception {
         //Given
         when(session.getId()).thenReturn("sessionId");
-        when(mockService.inProgressGame("sessionId")).thenReturn(game);
+        when(service.inProgressGame("sessionId")).thenReturn(game);
         //When
         String actual = controller.guessLetter("X", model, session);
         //Then
         assertEquals("forward to game page when playing", "game", actual);
-        verify(mockService).inProgressGame("sessionId");
+        verify(service).inProgressGame("sessionId");
         verify(model).addAttribute("game", game);
         InOrder inOrder = inOrder(repository, game);
         inOrder.verify(game).guess("X");

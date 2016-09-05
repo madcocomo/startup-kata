@@ -15,15 +15,11 @@ public class GameRecords {
     }
 
 
-    public int won() {
-        Long count = allGames.stream()
-                .filter(Game::isWin).count();
-        return count.intValue();
+    public long won() {
+        return allGames.stream().filter(Game::isWin).count();
     }
 
-    public int lost() {
-        Long count = allGames.stream()
-                .filter(Game::isLose).count();
-        return count.intValue();
+    public long lost() {
+        return allGames.stream().filter(Game::isLose).count();
     }
 }
