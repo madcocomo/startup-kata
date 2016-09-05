@@ -12,9 +12,10 @@ public class RecordsController {
 
     @RequestMapping("/records")
     public String showRecords(Model model) {
-        model.addAttribute("played", service.played());
-        model.addAttribute("won", service.won());
-        model.addAttribute("lost", service.lost());
+        GameRecords records = service.statistic();
+        model.addAttribute("played", records.played());
+        model.addAttribute("won", records.won());
+        model.addAttribute("lost", records.lost());
         return "records";
     }
 }

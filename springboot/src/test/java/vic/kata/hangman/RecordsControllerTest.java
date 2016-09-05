@@ -16,15 +16,18 @@ public class RecordsControllerTest {
     private Model model;
     @Mock
     private RecordsService service;
+    @Mock
+    private GameRecords records;
     @InjectMocks
     RecordsController controller = new RecordsController();
 
     @Test
     public void should_show_records() throws Exception {
         //Given
-        when(service.played()).thenReturn(5);
-        when(service.won()).thenReturn(2);
-        when(service.lost()).thenReturn(3);
+        when(service.statistic()).thenReturn(records);
+        when(records.played()).thenReturn(5);
+        when(records.won()).thenReturn(2);
+        when(records.lost()).thenReturn(3);
         //When
         controller.showRecords(model);
         //Then

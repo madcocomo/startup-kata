@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RecordsServiceTest {
@@ -39,9 +38,11 @@ public class RecordsServiceTest {
                 winGame(), winGame(), loseGame());
         when(repository.findAll()).thenReturn(playedGames);
         //When
+        GameRecords gameRecords = service.statistic();
         //Then
-        assertEquals("played", 3, service.played());
-        assertEquals("won", 2, service.won());
-        assertEquals("lost", 1, service.lost());
+        assertEquals("played", 3, gameRecords.played());
+        assertEquals("won", 2, gameRecords.won());
+        assertEquals("lost", 1, gameRecords.lost());
+        verify(repository, times(1)).findAll();
     }
 }
