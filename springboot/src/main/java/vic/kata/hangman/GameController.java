@@ -12,11 +12,14 @@ import javax.servlet.http.HttpSession;
 public class GameController {
     @Autowired
     private GameService service;
+    @Autowired
+    private GameRepository repository;
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model, HttpSession session) {
         String sessionId = session.getId();
         Game game = service.startGame(sessionId);
+        repository.save(game);
         model.addAttribute("game", game);
         return "game";
     }
@@ -26,6 +29,7 @@ public class GameController {
         String sessionId = session.getId();
         Game game = service.inProgressGame(sessionId);
         game.guess(letter);
+        repository.save(game);
         model.addAttribute("game", game);
         return "game";
     }

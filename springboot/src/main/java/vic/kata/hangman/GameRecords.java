@@ -18,18 +18,12 @@ public class GameRecords {
     public int won() {
         Long count = allGames.stream()
                 .filter(Game::isWin).count();
-        if (count == 0) {
-            return 1; //stub
-        }
         return count.intValue();
     }
 
     public int lost() {
         Long count = allGames.stream()
                 .filter(Game::isLose).count();
-        if (count == 0) {
-            return 2; //stub
-        }
         return count.intValue();
     }
 }

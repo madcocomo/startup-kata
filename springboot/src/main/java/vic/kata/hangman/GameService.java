@@ -13,8 +13,6 @@ public class GameService {
     private SecretProvider provider;
     @Autowired
     private GameRegistry inProgressGames;
-    @Autowired
-    private GameRepository gameRepository;
 
     public Game inProgressGame(String sessionId) {
         if (inProgressGames.hasGameInProgress(sessionId)) {
@@ -28,7 +26,6 @@ public class GameService {
                 configuration.getInitTried(),
                 provider.getSecret());
         inProgressGames.register(sessionId, game);
-        gameRepository.save(game);
         return game;
     }
 }

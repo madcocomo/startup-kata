@@ -59,15 +59,4 @@ public class GameServiceTest {
         verify(gameRegistry).find("sessionId");
         verify(gameBuilder, never()).createGame(anyInt(), anyString(), anyString());
     }
-
-    @Test
-    public void should_record_game_when_start() throws Exception {
-        //Given
-        when(gameBuilder.createGame(anyInt(), anyString(), anyString()))
-            .thenReturn(game);
-        //When
-        service.startGame("irrelevant");
-        //Then
-        verify(gameRepository).save(game);
-    }
 }

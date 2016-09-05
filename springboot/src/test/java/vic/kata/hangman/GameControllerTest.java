@@ -2,6 +2,7 @@ package vic.kata.hangman;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -17,6 +19,8 @@ import static org.mockito.Mockito.when;
 public class GameControllerTest {
     @Mock
     private GameService mockService;
+    @Mock
+    private GameRepository repository;
     @Mock
     private Model model;
     @Mock
@@ -38,6 +42,7 @@ public class GameControllerTest {
         assertEquals("show game page", "game", actual);
         verify(mockService).startGame("newSessionId");
         verify(model).addAttribute("game", game);
+        verify(repository).save(game);
     }
 
     @Test
@@ -50,7 +55,9 @@ public class GameControllerTest {
         //Then
         assertEquals("forward to game page when playing", "game", actual);
         verify(mockService).inProgressGame("sessionId");
-        verify(game).guess("X");
         verify(model).addAttribute("game", game);
+        InOrder inOrder = inOrder(repository, game);
+        inOrder.verify(game).guess("X");
+        inOrder.verify(repository).save(game);
     }
 }
