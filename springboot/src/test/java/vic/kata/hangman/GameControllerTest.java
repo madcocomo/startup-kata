@@ -60,4 +60,15 @@ public class GameControllerTest {
         inOrder.verify(game).guess("X");
         inOrder.verify(repository).save(game);
     }
+
+    @Test
+    public void should_redirected_to_home_if_playing_nonexists_game() throws Exception {
+        //Given
+        when(session.getId()).thenReturn("newSessionId");
+        when(service.inProgressGame("newSessionId")).thenReturn(null);
+        //When
+        String actual = controller.guessLetter("X", model, session);
+        //Then
+        assertEquals("back to home page", "redirect:/", actual);
+    }
 }

@@ -28,6 +28,9 @@ public class GameController {
     public String guessLetter(String letter, Model model, HttpSession session) {
         String sessionId = session.getId();
         Game game = service.inProgressGame(sessionId);
+        if (game == null) {
+            return "redirect:/";
+        }
         game.guess(letter);
         repository.save(game);
         model.addAttribute("game", game);

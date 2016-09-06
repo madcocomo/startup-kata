@@ -41,3 +41,9 @@ Feature: Game
         | P     | APP_E    | AEIOUXYZP  | 2      | playing  |
         | B     | APP_E    | AEIOUXYZPB | 1      | playing  |
         | C     | APP_E    | AEIOUXYZPBC| 0      | lose     |
+
+    Scenario: Guess before game start
+        It may happen if user leave the page after session timeout
+            Or back to the page by browser navigation button
+        When player input: X
+        Then player will see home page

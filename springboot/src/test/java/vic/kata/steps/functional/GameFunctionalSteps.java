@@ -24,6 +24,7 @@ import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 @ContextConfiguration(classes = {HangmanApplication.class, FunctionalTestHelper.class}, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
@@ -124,4 +125,8 @@ public class GameFunctionalSteps {
         helper.assertAtPageOnly(page, state == GameState.Lose, "//h1[text()='No Luck']", this);
     }
 
+    @Then("^player will see home page$")
+    public void gotoHomePage() throws Exception {
+        page.andExpect(redirectedUrl("/"));
+    }
 }
