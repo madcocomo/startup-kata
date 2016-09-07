@@ -15,13 +15,19 @@ public class GameController {
     @Autowired
     private GameRepository repository;
 
+    @RequestMapping(value = "/game")
+    public String showGame(Model model, HttpSession session) {
+        String sessionId = session.getId();
+        Game game = service.inProgressGame(sessionId);
+        model.addAttribute("game", game);
+        return "game";
+    }
+
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String newGame(Model model, HttpSession session) {
         String sessionId = session.getId();
-        Game game = service.startGame(sessionId);
-        repository.save(game);
-        model.addAttribute("game", game);
-        return "game";
+        repository.save(service.startGame(sessionId));
+        return "redirect:/game";
     }
 
     @RequestMapping(value = "/guess", method = RequestMethod.POST)
@@ -33,7 +39,6 @@ public class GameController {
         }
         game.guess(letter);
         repository.save(game);
-        model.addAttribute("game", game);
-        return "game";
+        return "redirect:/game";
     }
 }

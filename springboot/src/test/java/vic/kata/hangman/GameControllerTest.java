@@ -31,7 +31,7 @@ public class GameControllerTest {
     private GameController controller = new GameController();
 
     @Test
-    public void should_create_game_if_not_in_session() throws Exception {
+    public void should_create_game_and_save() throws Exception {
         //Given
         when(session.getId()).thenReturn("newSessionId");
         when(service.inProgressGame("newSessionId")).thenReturn(null);
@@ -39,23 +39,21 @@ public class GameControllerTest {
         //When
         String actual = controller.newGame(model, session);
         //Then
-        assertEquals("show game page", "game", actual);
+        assertEquals("show game page", "redirect:/game", actual);
         verify(service).startGame("newSessionId");
-        verify(model).addAttribute("game", game);
         verify(repository).save(game);
     }
 
     @Test
-    public void testGuessLetter() throws Exception {
+    public void should_call_game_guess_and_save() throws Exception {
         //Given
         when(session.getId()).thenReturn("sessionId");
         when(service.inProgressGame("sessionId")).thenReturn(game);
         //When
         String actual = controller.guessLetter("X", model, session);
         //Then
-        assertEquals("forward to game page when playing", "game", actual);
+        assertEquals("forward to game page when playing", "redirect:/game", actual);
         verify(service).inProgressGame("sessionId");
-        verify(model).addAttribute("game", game);
         InOrder inOrder = inOrder(repository, game);
         inOrder.verify(game).guess("X");
         inOrder.verify(repository).save(game);

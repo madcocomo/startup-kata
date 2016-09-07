@@ -3,12 +3,9 @@ package vic.kata.steps.functional;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Rule;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.mock.web.MockHttpSession;
@@ -23,8 +20,9 @@ import vic.kata.hangman.SecretProvider;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ContextConfiguration(classes = {HangmanApplication.class, FunctionalTestHelper.class}, loader = SpringApplicationContextLoader.class)
 @WebAppConfiguration
@@ -66,6 +64,13 @@ public class GameFunctionalSteps {
     @When("^player start a new game$")
     public void startGame() throws Exception {
         page = helper.getMvc().perform(post("/game").session(session));
+        page = helper.followRedirect(page, session);
+    }
+
+    @When("^player input: (.)$")
+    public void inputLetter(String l) throws Exception {
+        page = helper.getMvc().perform(post("/guess").session(session).param("letter", l));
+        page = helper.followRedirect(page, session);
     }
 
     @Then("^the question is: (.*)$")
@@ -81,11 +86,6 @@ public class GameFunctionalSteps {
     @Then("^chance is: (.*)$")
     public void verifyChance(int chance) throws Exception {
         helper.assertAtPage(page, "//li[string(.)='Chance: "+ chance +"']");
-    }
-
-    @When("^player input: (.)$")
-    public void inputLetter(String l) throws Exception {
-        page = helper.getMvc().perform(post("/guess").session(session).param("letter", l));
     }
     enum GameState {
         Playing, Win, Lose
@@ -127,6 +127,6 @@ public class GameFunctionalSteps {
 
     @Then("^player will see home page$")
     public void gotoHomePage() throws Exception {
-        page.andExpect(redirectedUrl("/"));
+        page.andExpect(view().name("home"));
     }
 }
