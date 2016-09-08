@@ -2,7 +2,7 @@ package vic.kata.hangman;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,25 +15,25 @@ public class GameController {
     @Autowired
     private GameRepository repository;
 
+    @ModelAttribute
+    public Game getInProgressGame(HttpSession session) {
+        return service.inProgressGame(session.getId());
+    }
+
     @RequestMapping(value = "/game")
-    public String showGame(Model model, HttpSession session) {
-        String sessionId = session.getId();
-        Game game = service.inProgressGame(sessionId);
-        model.addAttribute("game", game);
+    public String showGame(Game game) {
         return "game";
     }
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
-    public String newGame(Model model, HttpSession session) {
-        String sessionId = session.getId();
-        repository.save(service.startGame(sessionId));
+    public String newGame(HttpSession session) {
+        Game game = service.startGame(session.getId());
+        repository.save(game);
         return "redirect:/game";
     }
 
     @RequestMapping(value = "/guess", method = RequestMethod.POST)
-    public String guessLetter(String letter, Model model, HttpSession session) {
-        String sessionId = session.getId();
-        Game game = service.inProgressGame(sessionId);
+    public String guessLetter(String letter, Game game) {
         if (game == null || game.isEnd()) {
             return "redirect:/";
         }
