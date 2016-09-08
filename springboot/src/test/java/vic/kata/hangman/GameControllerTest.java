@@ -11,9 +11,7 @@ import org.springframework.ui.Model;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameControllerTest {
@@ -64,6 +62,18 @@ public class GameControllerTest {
         //Given
         when(session.getId()).thenReturn("newSessionId");
         when(service.inProgressGame("newSessionId")).thenReturn(null);
+        //When
+        String actual = controller.guessLetter("X", model, session);
+        //Then
+        assertEquals("back to home page", "redirect:/", actual);
+    }
+
+    @Test
+    public void should_redirected_to_home_if_playing_ended_game() throws Exception {
+        //Given
+        when(session.getId()).thenReturn("sessionId");
+        when(service.inProgressGame("sessionId")).thenReturn(game);
+        when(game.isEnd()).thenReturn(true);
         //When
         String actual = controller.guessLetter("X", model, session);
         //Then

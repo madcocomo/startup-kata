@@ -47,3 +47,9 @@ Feature: Game
             Or back to the page by browser navigation button
         When player input: X
         Then player will see home page
+
+    Scenario: Guess after game over
+        It may happen if user back by browser navigation button
+        Given player played a game: LP
+        When player input: X
+        Then player will see home page

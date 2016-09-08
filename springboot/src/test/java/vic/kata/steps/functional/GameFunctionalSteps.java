@@ -127,6 +127,6 @@ public class GameFunctionalSteps {
 
     @Then("^player will see home page$")
     public void gotoHomePage() throws Exception {
-        page.andExpect(view().name("home"));
+        helper.assertAtPage(page, "//input[@value='Start Game']");
     }
 }

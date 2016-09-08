@@ -34,7 +34,7 @@ public class GameController {
     public String guessLetter(String letter, Model model, HttpSession session) {
         String sessionId = session.getId();
         Game game = service.inProgressGame(sessionId);
-        if (game == null) {
+        if (game == null || game.isEnd()) {
             return "redirect:/";
         }
         game.guess(letter);
