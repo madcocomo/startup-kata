@@ -5,15 +5,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
-
 import java.text.MessageFormat;
 
-import static org.hamcrest.Matchers.hasXPath;
-import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,29 +43,28 @@ public class FunctionalTestHelper {
         return new AssertionError(msg, e);
     }
 
-    public void assertAtPage(ResultActions page, String toMatch) throws Exception {
+    private void assertPage(ResultActions page, ResultMatcher resultMatcher) throws Exception {
         try {
             page.andExpect(status().isOk())
-                .andExpect(content().node(hasXPath(toMatch)));
+                    .andExpect(resultMatcher);
         } catch (Throwable e) {
             throw errorWithPageContent(page, e);
         }
     }
 
+    public void assertAtPage(ResultActions page, String toMatch) throws Exception {
+        assertPage(page, xpath(toMatch).exists());
+    }
+
     public void assertNotAtPage(ResultActions page, String toMatch) throws Exception {
-        try {
-            page.andExpect(status().isOk())
-                .andExpect(content().node(not(hasXPath(toMatch))));
-        } catch (Throwable e) {
-            throw errorWithPageContent(page, e);
-        }
+        assertPage(page, xpath(toMatch).doesNotExist());
     }
 
     public void assertAtPageOnly(ResultActions page, boolean isTrue, String xpath, GameFunctionalSteps gameFunctionalSteps) throws Exception {
         if (isTrue) {
-            assertAtPage(page, xpath);
+            assertPage(page, xpath(xpath).exists());
         } else {
-            assertNotAtPage(page, xpath);
+            assertPage(page, xpath(xpath).doesNotExist());
         }
     }
 }
